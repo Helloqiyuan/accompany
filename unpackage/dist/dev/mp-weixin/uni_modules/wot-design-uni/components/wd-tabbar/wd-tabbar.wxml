@@ -1,0 +1,1 @@
+<view class="{{['data-v-70467ab8', c && 'wd-tabbar__placeholder']}}" style="{{'height:' + d}}"><view class="{{['data-v-70467ab8', a]}}" style="{{b}}"><slot></slot></view></view>

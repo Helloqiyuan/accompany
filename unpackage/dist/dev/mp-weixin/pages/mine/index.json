@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "个人中心",
+  "usingComponents": {
+    "wd-text": "../../uni_modules/wot-design-uni/components/wd-text/wd-text"
+  }
+}

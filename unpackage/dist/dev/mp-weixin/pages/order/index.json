@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "订单中心",
+  "usingComponents": {
+    "wd-swiper": "../../uni_modules/wot-design-uni/components/wd-swiper/wd-swiper",
+    "wd-button": "../../uni_modules/wot-design-uni/components/wd-button/wd-button"
+  }
+}

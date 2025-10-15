@@ -1,0 +1,1 @@
+<view><wd-text wx:if="{{a}}" u-i="35efb438-0" bind:__l="__l" u-p="{{a}}"></wd-text></view>
