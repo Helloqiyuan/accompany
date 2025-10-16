@@ -7796,7 +7796,6 @@ exports.getCurrentInstance = getCurrentInstance;
 exports.index = index;
 exports.n = n;
 exports.o = o;
-exports.onMounted = onMounted;
 exports.p = p;
 exports.r = r;
 exports.ref = ref;

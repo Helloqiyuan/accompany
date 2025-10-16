@@ -3,6 +3,12 @@
     "vue": "^3.5.22"
   },
   "devDependencies": {
+    "less": "^4.4.2",
+    "less-loader": "^12.3.0",
     "sass": "^1.93.2"
+  },
+  "scripts": {
+    "serve-uniapp": "npm run dev:mp-weixin",
+    "serve-h5": "npm run dev:h5"
   }
 }

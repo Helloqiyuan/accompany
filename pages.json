@@ -8,6 +8,18 @@
       }
     },
     {
+      "path": "pages/home/func1/index",
+      "style": {
+        "navigationBarTitleText": "就医陪诊"
+      }
+    },
+    {
+      "path": "pages/home/func2/index",
+      "style": {
+        "navigationBarTitleText": "上门康复"
+      }
+    },
+    {
       "path": "pages/order/index",
       "style": {
         "navigationBarTitleText": "订单中心"

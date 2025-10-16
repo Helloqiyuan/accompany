@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/home/index",
+    "pages/home/func1/index",
+    "pages/home/func2/index",
     "pages/order/index",
     "pages/mine/index"
   ],
