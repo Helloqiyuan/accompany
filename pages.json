@@ -20,6 +20,12 @@
       }
     },
     {
+      "path": "pages/home/hospitalDetail/index",
+      "style": {
+        "navigationBarTitleText": "医院详情"
+      }
+    },
+    {
       "path": "pages/order/index",
       "style": {
         "navigationBarTitleText": "订单中心"

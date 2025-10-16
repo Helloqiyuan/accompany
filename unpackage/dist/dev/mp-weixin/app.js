@@ -5,6 +5,7 @@ if (!Math) {
   "./pages/home/index.js";
   "./pages/home/func1/index.js";
   "./pages/home/func2/index.js";
+  "./pages/home/hospitalDetail/index.js";
   "./pages/order/index.js";
   "./pages/mine/index.js";
 }

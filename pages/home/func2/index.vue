@@ -1,6 +1,6 @@
 <template> 
     <view class="content">
-        上门康复
+        <wd-text text=""></wd-text>
     </view>
 </template>
 <script setup lang="ts">

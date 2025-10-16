@@ -1,0 +1,10 @@
+// 通用圆角半径
+$r:16rpx;
+// 通用屏幕宽度
+$w:720rpx;
+// 通用内容宽度
+// $w - 2 * $r
+$c:688rpx;
+view{
+  box-sizing: border-box;
+}

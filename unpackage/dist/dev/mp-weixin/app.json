@@ -3,6 +3,7 @@
     "pages/home/index",
     "pages/home/func1/index",
     "pages/home/func2/index",
+    "pages/home/hospitalDetail/index",
     "pages/order/index",
     "pages/mine/index"
   ],

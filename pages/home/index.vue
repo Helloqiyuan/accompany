@@ -38,7 +38,7 @@
 
     <!-- 医院列表 -->
     <view class="hospital-list">
-      <view class="hospital-card" v-for="(item, idx) in hospitals" :key="idx">
+      <view class="hospital-card" v-for="(item, idx) in hospitals" :key="idx" @click="switchtohospitaldetail(item)">
         <!-- 左侧图片 -->
         <view class="hospital-image">
           <image :src="item.img" class="hospital-img" mode="aspectFill" />
@@ -65,9 +65,18 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+
 const switchtofunc1 = ()=>{
+  // @ts-ignore
   uni.navigateTo({
     url: '/pages/home/func1/index'
+  })
+}
+
+const switchtohospitaldetail = (item: any) => {
+  // @ts-ignore
+  uni.navigateTo({
+    url: `/pages/home/hospitalDetail/index?hospitalId=${item.id || 1}&name=${encodeURIComponent(item.name)}`
   })
 }
 // 轮播图数据 - 只包含图片路径
@@ -80,6 +89,7 @@ const bannerList = ref([
 // 医院列表数据
 const hospitals = ref([
   {
+    id: 1,
     name: '九江学院附属医院666',
     level: '三甲',
     type: '综合医院',
@@ -87,6 +97,7 @@ const hospitals = ref([
     desc: '九江学院附属医院始建于1877年，前身是英国圣教会"济生医院"，集医疗、教学、科研、预防、康复为一体的三级甲等综合医院。',
   },
   {
+    id: 2,
     name: '九江学院附属医院888',
     level: '三甲',
     type: '综合医院',
@@ -97,9 +108,12 @@ const hospitals = ref([
 </script>
 
 <style scoped lang="scss">
+@import "../../static/css/global.scss";
+
 .content {
   background: #f7f8fa;
   min-height: 100vh;
+  width: $w;
   padding: 16rpx;
 }
 
@@ -115,11 +129,14 @@ const hospitals = ref([
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  // background-color: purple;
+  width: $c;
 }
 
 .func .item {
   box-sizing: border-box;
-  width: 350rpx;
+  // 宽度为内容宽度减去1个内边距再除以2
+  width: 336rpx;
   height: 195rpx;
   background-image: linear-gradient(-242.85031830221683deg, #70a9fe 0%, #2980fd 99.99999999999999%);
   border-radius: 20rpx;
@@ -159,12 +176,12 @@ const hospitals = ref([
 }
 
 // 医院列表部分
-.hospital-list {
-  width: 720rpx;
+.hospital-list{
+  width: $c;
+  // background-color: pink;
 }
-
 .hospital-card {
-  width: 668rpx;
+  width: $c;
   height: 300rpx;
   background-color: white; /* 白色背景模拟卡片 */
   border-radius: 12rpx; /* 圆角 */

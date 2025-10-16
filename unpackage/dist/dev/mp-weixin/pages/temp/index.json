@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "首页",
-  "usingComponents": {
-    "wd-swiper": "../../uni_modules/wot-design-uni/components/wd-swiper/wd-swiper",
-    "wd-text": "../../uni_modules/wot-design-uni/components/wd-text/wd-text",
-    "wd-button": "../../uni_modules/wot-design-uni/components/wd-button/wd-button",
-    "wd-img": "../../uni_modules/wot-design-uni/components/wd-img/wd-img"
-  }
-}

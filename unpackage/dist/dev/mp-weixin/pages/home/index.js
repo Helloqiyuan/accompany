@@ -22,6 +22,11 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
         url: "/pages/home/func1/index"
       });
     };
+    const switchtohospitaldetail = (item) => {
+      common_vendor.index.navigateTo({
+        url: `/pages/home/hospitalDetail/index?hospitalId=${item.id || 1}&name=${encodeURIComponent(item.name)}`
+      });
+    };
     const bannerList = common_vendor.ref([
       { path: "/static/swiper/1.svg" },
       { path: "/static/swiper/2.svg" },
@@ -29,6 +34,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
     ]);
     const hospitals = common_vendor.ref([
       {
+        id: 1,
         name: "九江学院附属医院666",
         level: "三甲",
         type: "综合医院",
@@ -36,6 +42,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
         desc: '九江学院附属医院始建于1877年，前身是英国圣教会"济生医院"，集医疗、教学、科研、预防、康复为一体的三级甲等综合医院。'
       },
       {
+        id: 2,
         name: "九江学院附属医院888",
         level: "三甲",
         type: "综合医院",
@@ -100,7 +107,8 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
             c: common_vendor.t(item.level),
             d: common_vendor.t(item.type),
             e: common_vendor.t(item.desc),
-            f: idx
+            f: idx,
+            g: common_vendor.o(($event) => switchtohospitaldetail(item), idx)
           };
         })
       };
