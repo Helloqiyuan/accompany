@@ -2,44 +2,46 @@
     <view class="container">
 
         <!-- 医院信息卡片 -->
+
+        <!-- 医院名字 -->
+        <view class="hospital-name">{{ hospitalInfo.name }}</view>
+
+        <!-- 医院信息卡片 -->
         <view class="hospital-card">
-            <view class="hospital-info">
-                <view class="hospital-name">{{ hospitalInfo.name }}</view>
-                <view class="hospital-type">{{ hospitalInfo.level }} {{ hospitalInfo.type }}</view>
-                <view class="hospital-address">
-                    <text class="address-text">{{ hospitalInfo.address }}</text>
-                </view>
-                <view class="navigate-btn" @click="handleNavigate">导航</view>
-            </view>
             <view class="hospital-image">
                 <image class="building-img" :src="hospitalInfo.img" mode="aspectFill" />
             </view>
+            <view class="hospital-info">
+                <view class="hospital-type">{{ hospitalInfo.level }} {{ hospitalInfo.type }}</view>
+                <view class="hospital-bottom">
+                    <wd-img width="20" height="20" style="margin-bottom: 10rpx;"
+                        src="/static/hospitalDetail/location.png" />
+                    <text class="address-text">{{ hospitalInfo.address }}</text>
+                    <view class="navigate-btn" @click="handleNavigate">导航</view>
+                </view>
+            </view>
         </view>
 
-        <!-- 服务标题 -->
-        <view class="service-title">在线预约您需要的服务</view>
+        <view class="service-section">
+            <!-- 服务标题 -->
+            <view class="service-title">在线预约您需要的服务</view>
 
 
-        <!-- 服务卡片列表 -->
-        <view class="service-list">
-            <view 
-                class="service-card" 
-                v-for="(service, index) in serviceList" 
-                :key="service.id"
-            >
+            <!-- 服务卡片 -->
+            <view class="service-card" v-for="(service, index) in serviceList" :key="service.id">
                 <!-- 左侧图标区域 -->
                 <view class="icon-wrap" :class="service.iconClass">
-                    <image class="service-icon" :src="service.icon" mode="aspectFit" />
+                    <image class="service-icon" src="/static/func1/1.svg"/>
                     <text class="icon-text">{{ service.iconText }}</text>
                 </view>
-                
+
                 <!-- 中部信息区域 -->
                 <view class="service-info">
                     <view class="service-title-text">{{ service.title }}</view>
                     <view class="service-desc">{{ service.description }}</view>
                     <view class="service-price">{{ service.price }}</view>
                 </view>
-                
+
                 <!-- 右侧预约按钮 -->
                 <view class="book-btn" @click="handleBook(service)">预约</view>
             </view>
@@ -74,12 +76,13 @@ interface ServiceItem {
 // 医院信息数据
 const hospitalInfo = ref<HospitalInfo>({
     id: 1,
-    name: '九江学院附属医院666',
+    name: '九江学院附属医院',
     level: '三甲',
     type: '综合医院',
     img: '/static/list/1.svg',
     address: '九江市浔阳东路57号/庐峰路17号'
 });
+
 
 // 服务列表数据
 const serviceList = ref<ServiceItem[]>([
@@ -118,10 +121,9 @@ const handleNavigate = () => {
 const handleBook = (service: ServiceItem) => {
     console.log('预约服务:', service.title);
     // @ts-ignore
-    uni.showToast({
-        title: `预约${service.title}`,
-        icon: 'none'
-    });
+    uni.navigateTo({
+        url: '/pages/serviceorder/index'
+    })
 };
 
 // 页面加载时获取路由参数
@@ -132,11 +134,11 @@ onMounted(() => {
     const currentPage = pages[pages.length - 1];
     // @ts-ignore
     const options = currentPage.options;
-    
+
     console.log('路由参数:', options);
     console.log('医院ID:', options.hospitalId);
     console.log('医院名称:', decodeURIComponent(options.name || ''));
-    
+
     // 如果有传递参数，更新医院信息
     if (options.hospitalId && options.name) {
         hospitalInfo.value.id = parseInt(options.hospitalId);
@@ -197,7 +199,8 @@ onMounted(() => {
     justify-content: flex-end;
 }
 
-.more-btn, .eye-btn {
+.more-btn,
+.eye-btn {
     width: 60rpx;
     height: 60rpx;
     display: flex;
@@ -205,176 +208,187 @@ onMounted(() => {
     justify-content: center;
 }
 
-.more-icon, .eye-icon {
+.more-icon,
+.eye-icon {
     width: 40rpx;
     height: 40rpx;
 }
 
 /* 医院信息卡片样式 */
-.hospital-card {
-    background: #fff;
-    margin: 0 32rpx 24rpx 32rpx;
-    border-radius: 16rpx;
-    padding: 32rpx;
-    display: flex;
-    align-items: center;
-    gap: 24rpx;
-    box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
-}
-
-.hospital-info {
-    flex: 1;
-}
-
 .hospital-name {
+    text-align: center;
     font-size: 36rpx;
     font-weight: 600;
     color: #333;
-    margin-bottom: 12rpx;
 }
 
-.hospital-type {
-    font-size: 28rpx;
-    color: #666;
-    margin-bottom: 16rpx;
-}
-
-.hospital-address {
-    display: flex;
-    align-items: center;
-    gap: 12rpx;
-    margin-bottom: 20rpx;
-}
-
-.location-icon {
-    width: 32rpx;
-    height: 32rpx;
-}
-
-.address-text {
-    font-size: 26rpx;
-    color: #666;
-    flex: 1;
-}
-
-.navigate-btn {
-    background: #27c1c3;
-    color: #fff;
-    padding: 12rpx 24rpx;
-    border-radius: 8rpx;
-    font-size: 26rpx;
-    text-align: center;
-    width: fit-content;
-}
-
-.hospital-image {
-    width: 120rpx;
-    height: 120rpx;
-    border-radius: 12rpx;
-    overflow: hidden;
-}
-
-.building-img {
-    width: 100%;
-    height: 100%;
-}
-
-/* 服务标题样式 */
-.service-title {
-    font-size: 32rpx;
-    font-weight: 600;
-    color: #333;
-    padding: 32rpx 32rpx 24rpx;
+.hospital-card {
+    position: relative;
     background: #fff;
-    margin: 0 32rpx 24rpx;
-    border-radius: 16rpx 16rpx 0 0;
+    width: 688rpx;
+    height: 185rpx;
+    margin: 32rpx;
+    margin-top: 16rpx;
+    border-radius: 16rpx;
+    box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+
+    .hospital-image {
+        position: absolute;
+        width: 150rpx;
+        height: 150rpx;
+        left: 32rpx;
+        top: -50rpx;
+        .building-img{
+            border-radius: 16rpx;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .hospital-info {
+        box-sizing: border-box;
+        display: flex;
+        flex: 1;
+        padding: 32rpx 16rpx 12rpx 16rpx;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .hospital-type {
+            padding-top: 16rpx;
+            margin-left: 200rpx;
+            color: #23c588;
+            font-weight: 600;
+        }
+
+        .hospital-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding-left: 16rpx;
+
+            .address-text {
+                padding-left: 40rpx;
+                font-size: 24rpx;
+                line-height: 1.15;
+                color: black;
+                flex: 1;
+            }
+
+            .navigate-btn {
+                color: #27c1c3;
+                padding: 12rpx 24rpx;
+                border-radius: 8rpx;
+                font-size: 26rpx;
+                text-align: center;
+                width: fit-content;
+            }
+        }
+    }
 }
 
-/* 服务列表样式 */
-.service-list {
-    margin: 0 32rpx;
-}
-
-.service-card {
+.service-section {
+    width: 688rpx;
+    margin: 0 auto;
     background: #fff;
     border-radius: 16rpx;
-    padding: 32rpx;
-    margin-bottom: 24rpx;
-    display: flex;
-    align-items: center;
-    gap: 24rpx;
-    box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
-}
+    box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
 
-/* 图标区域样式 */
-.icon-wrap {
-    width: 120rpx;
-    height: 120rpx;
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
+    &::after {
+        content: '';
+        width: 100%;
+        display: block;
+        height: 16rpx;
+    }
 
-.icon-orange {
-    background: #ff8c42;
-}
+    // 服务标题样式
+    .service-title {
+        font-size: 32rpx;
+        font-weight: 600;
+        color: #333;
+        padding: 32rpx 16rpx 24rpx;
+        background: #fff;
+        margin-bottom: 16rpx;
+        border-radius: 16rpx 16rpx 0 0;
+    }
 
-.icon-blue {
-    background: #4a90e2;
-}
+    // 服务卡片样式
+    .service-card {
+        background: #fff;
+        border-radius: 16rpx;
+        padding: 16rpx;
+        margin: 24rpx;
+        margin-top: 16rpx;
+        display: flex;
+        align-items: center;
+        gap: 24rpx;
+        box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
 
-.service-icon {
-    width: 60rpx;
-    height: 60rpx;
-    position: absolute;
-    top: 20rpx;
-}
+        // 图标区域样式
+        .icon-wrap {
+            width: 120rpx;
+            height: 120rpx;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
 
-.icon-text {
-    color: #fff;
-    font-size: 32rpx;
-    font-weight: 600;
-    margin-top: 40rpx;
-}
 
-/* 服务信息区域样式 */
-.service-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 8rpx;
-}
+            .service-icon {
+                width: 120rpx;
+                height: 120rpx;
+                position: absolute;
+                // top: 20rpx;
+            }
 
-.service-title-text {
-    font-size: 32rpx;
-    font-weight: 600;
-    color: #333;
-}
+            .icon-text {
+                color: #fff;
+                font-size: 32rpx;
+                font-weight: 600;
+                margin-top: 40rpx;
+            }
+        }
 
-.service-desc {
-    font-size: 26rpx;
-    color: #666;
-    line-height: 1.5;
-}
+        // 服务信息区域样式
+        .service-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8rpx;
 
-.service-price {
-    font-size: 28rpx;
-    color: #27c1c3;
-    font-weight: 500;
-}
+            .service-title-text {
+                font-size: 32rpx;
+                font-weight: 600;
+                color: #333;
+            }
 
-/* 预约按钮样式 */
-.book-btn {
-    background: #27c1c3;
-    color: #fff;
-    padding: 16rpx 32rpx;
-    border-radius: 12rpx;
-    font-size: 28rpx;
-    font-weight: 500;
-    text-align: center;
-    min-width: 120rpx;
+            .service-desc {
+                font-size: 24rpx;
+                color: #666;
+                line-height: 1.5;
+            }
+
+            .service-price {
+                font-size: 28rpx;
+                color: #27c1c3;
+                font-weight: 500;
+            }
+        }
+
+        // 预约按钮样式
+        .book-btn {
+            background: #27c1c3;
+            color: #fff;
+            padding: 16rpx 32rpx;
+            border-radius: 12rpx;
+            font-size: 28rpx;
+            font-weight: 500;
+            text-align: center;
+            min-width: 50rpx;
+        }
+    }
 }
 </style>

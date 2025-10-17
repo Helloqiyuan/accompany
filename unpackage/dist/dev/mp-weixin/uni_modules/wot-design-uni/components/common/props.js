@@ -4,6 +4,10 @@ const makeRequiredProp = (type) => ({
   type,
   required: true
 });
+const makeArrayProp = () => ({
+  type: Array,
+  default: () => []
+});
 const makeBooleanProp = (defaultVal) => ({
   type: Boolean,
   default: defaultVal
@@ -31,6 +35,7 @@ const baseProps = {
   customClass: makeStringProp("")
 };
 exports.baseProps = baseProps;
+exports.makeArrayProp = makeArrayProp;
 exports.makeBooleanProp = makeBooleanProp;
 exports.makeNumberProp = makeNumberProp;
 exports.makeNumericProp = makeNumericProp;

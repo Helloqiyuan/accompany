@@ -1,5 +1,6 @@
 "use strict";
 require("../../../../common/vendor.js");
+const uni_modules_wotDesignUni_components_common_AbortablePromise = require("./AbortablePromise.js");
 function uuid() {
   return s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4();
 }
@@ -18,12 +19,72 @@ function getType(target) {
   const type = match && match.length ? match[1].toLowerCase() : "";
   return type;
 }
+const defaultDisplayFormat = function(items, kv) {
+  const labelKey = (kv == null ? void 0 : kv.labelKey) || "value";
+  if (Array.isArray(items)) {
+    return items.map((item) => item[labelKey]).join(", ");
+  } else {
+    return items[labelKey];
+  }
+};
 const isDef = (value) => value !== void 0 && value !== null;
+function rgbToHex(r, g, b) {
+  const hex = (r << 16 | g << 8 | b).toString(16);
+  const paddedHex = "#" + "0".repeat(Math.max(0, 6 - hex.length)) + hex;
+  return paddedHex;
+}
+function hexToRgb(hex) {
+  const rgb = [];
+  for (let i = 1; i < 7; i += 2) {
+    rgb.push(parseInt("0x" + hex.slice(i, i + 2), 16));
+  }
+  return rgb;
+}
+const gradient = (startColor, endColor, step = 2) => {
+  const sColor = hexToRgb(startColor);
+  const eColor = hexToRgb(endColor);
+  const rStep = (eColor[0] - sColor[0]) / step;
+  const gStep = (eColor[1] - sColor[1]) / step;
+  const bStep = (eColor[2] - sColor[2]) / step;
+  const gradientColorArr = [];
+  for (let i = 0; i < step; i++) {
+    gradientColorArr.push(
+      rgbToHex(parseInt(String(rStep * i + sColor[0])), parseInt(String(gStep * i + sColor[1])), parseInt(String(bStep * i + sColor[2])))
+    );
+  }
+  return gradientColorArr;
+};
+const range = (num, min, max) => {
+  return Math.min(Math.max(num, min), max);
+};
+const isEqual = (value1, value2) => {
+  if (value1 === value2) {
+    return true;
+  }
+  if (!Array.isArray(value1) || !Array.isArray(value2)) {
+    return false;
+  }
+  if (value1.length !== value2.length) {
+    return false;
+  }
+  for (let i = 0; i < value1.length; ++i) {
+    if (value1[i] !== value2[i]) {
+      return false;
+    }
+  }
+  return true;
+};
+const context = {
+  id: 1e3
+};
 function kebabCase(word) {
   const newWord = word.replace(/[A-Z]/g, function(match) {
     return "-" + match;
   }).toLowerCase();
   return newWord;
+}
+function camelCase(word) {
+  return word.replace(/-(\w)/g, (_, c) => c.toUpperCase());
 }
 function isArray(value) {
   if (typeof Array.isArray === "function") {
@@ -31,8 +92,17 @@ function isArray(value) {
   }
   return Object.prototype.toString.call(value) === "[object Array]";
 }
+function isFunction(value) {
+  return getType(value) === "function" || getType(value) === "asyncfunction";
+}
 function isString(value) {
   return getType(value) === "string";
+}
+function isPromise(value) {
+  if (isObj(value) && isDef(value)) {
+    return isFunction(value.then) && isFunction(value.catch);
+  }
+  return false;
 }
 function objToStyle(styles) {
   if (isArray(styles)) {
@@ -56,6 +126,74 @@ function objToStyle(styles) {
   }
   return "";
 }
+const pause = (ms = 1e3 / 30) => {
+  return new uni_modules_wotDesignUni_components_common_AbortablePromise.AbortablePromise((resolve) => {
+    const timer = setTimeout(() => {
+      clearTimeout(timer);
+      resolve(true);
+    }, ms);
+  });
+};
+function deepClone(obj, cache = /* @__PURE__ */ new Map()) {
+  if (obj === null || typeof obj !== "object") {
+    return obj;
+  }
+  if (isDate(obj)) {
+    return new Date(obj.getTime());
+  }
+  if (obj instanceof RegExp) {
+    return new RegExp(obj.source, obj.flags);
+  }
+  if (obj instanceof Error) {
+    const errorCopy = new Error(obj.message);
+    errorCopy.stack = obj.stack;
+    return errorCopy;
+  }
+  if (cache.has(obj)) {
+    return cache.get(obj);
+  }
+  const copy = Array.isArray(obj) ? [] : {};
+  cache.set(obj, copy);
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      copy[key] = deepClone(obj[key], cache);
+    }
+  }
+  return copy;
+}
+function deepMerge(target, source) {
+  target = deepClone(target);
+  if (typeof target !== "object" || typeof source !== "object") {
+    throw new Error("Both target and source must be objects.");
+  }
+  for (const prop in source) {
+    if (!source.hasOwnProperty(prop))
+      continue;
+    target[prop] = source[prop];
+  }
+  return target;
+}
+function deepAssign(target, source) {
+  Object.keys(source).forEach((key) => {
+    const targetValue = target[key];
+    const newObjValue = source[key];
+    if (isObj(targetValue) && isObj(newObjValue)) {
+      deepAssign(targetValue, newObjValue);
+    } else {
+      target[key] = newObjValue;
+    }
+  });
+  return target;
+}
+const getPropByPath = (obj, path) => {
+  const keys = path.split(".");
+  try {
+    return keys.reduce((acc, key) => acc !== void 0 && acc !== null ? acc[key] : void 0, obj);
+  } catch (error) {
+    return void 0;
+  }
+};
+const isDate = (val) => Object.prototype.toString.call(val) === "[object Date]" && !Number.isNaN(val.getTime());
 function isVideoUrl(url) {
   const videoRegex = /\.(ogm|webm|ogv|asx|m4v|mp4|mpg|mpeg|dat|asf|avi|rm|rmvb|mov|wmv|flv|mkv|video)(?=$|[?#])/i;
   return videoRegex.test(url);
@@ -65,9 +203,25 @@ function isImageUrl(url) {
   return imageRegex.test(url);
 }
 exports.addUnit = addUnit;
+exports.camelCase = camelCase;
+exports.context = context;
+exports.deepAssign = deepAssign;
+exports.deepClone = deepClone;
+exports.deepMerge = deepMerge;
+exports.defaultDisplayFormat = defaultDisplayFormat;
+exports.getPropByPath = getPropByPath;
+exports.getType = getType;
+exports.gradient = gradient;
+exports.isArray = isArray;
 exports.isDef = isDef;
+exports.isEqual = isEqual;
+exports.isFunction = isFunction;
 exports.isImageUrl = isImageUrl;
 exports.isObj = isObj;
+exports.isPromise = isPromise;
+exports.isString = isString;
 exports.isVideoUrl = isVideoUrl;
 exports.objToStyle = objToStyle;
+exports.pause = pause;
+exports.range = range;
 exports.uuid = uuid;

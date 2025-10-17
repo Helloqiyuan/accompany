@@ -138,18 +138,10 @@ view.data-v-4978fed5 {
 .tag.data-v-4978fed5 {
   padding: 4rpx 12rpx;
   border-radius: 20rpx;
-  font-size: 20rpx;
+  font-size: 28rpx;
+  font-weight: 700;
   line-height: 1;
-}
-.tag-success.data-v-4978fed5 {
-  background-color: #e8f5e8;
   color: #52c41a;
-  border: 1rpx solid #b7eb8f;
-}
-.tag-primary.data-v-4978fed5 {
-  background-color: #e6f7ff;
-  color: #1890ff;
-  border: 1rpx solid #91d5ff;
 }
 .hospital-desc.data-v-4978fed5 {
   font-size: 24rpx;

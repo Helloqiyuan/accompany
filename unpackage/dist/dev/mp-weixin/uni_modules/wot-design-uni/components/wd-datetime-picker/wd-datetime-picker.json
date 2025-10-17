@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "usingComponents": {
+    "wd-popup": "../wd-popup/wd-popup",
+    "wd-datetime-picker-view": "../wd-datetime-picker-view/wd-datetime-picker-view",
+    "wd-cell": "../wd-cell/wd-cell",
+    "wd-icon": "../wd-icon/wd-icon"
+  }
+}

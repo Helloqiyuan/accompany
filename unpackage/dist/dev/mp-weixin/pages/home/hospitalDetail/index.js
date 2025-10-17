@@ -1,11 +1,20 @@
 "use strict";
 const common_vendor = require("../../../common/vendor.js");
+const common_assets = require("../../../common/assets.js");
+if (!Array) {
+  const _easycom_wd_img2 = common_vendor.resolveComponent("wd-img");
+  _easycom_wd_img2();
+}
+const _easycom_wd_img = () => "../../../uni_modules/wot-design-uni/components/wd-img/wd-img.js";
+if (!Math) {
+  _easycom_wd_img();
+}
 const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
   __name: "index",
   setup(__props) {
     const hospitalInfo = common_vendor.ref({
       id: 1,
-      name: "九江学院附属医院666",
+      name: "九江学院附属医院",
       level: "三甲",
       type: "综合医院",
       img: "/static/list/1.svg",
@@ -40,9 +49,8 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
     };
     const handleBook = (service) => {
       console.log("预约服务:", service.title);
-      common_vendor.index.showToast({
-        title: `预约${service.title}`,
-        icon: "none"
+      common_vendor.index.navigateTo({
+        url: "/pages/serviceorder/index"
       });
     };
     common_vendor.onMounted(() => {
@@ -60,23 +68,28 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
     return (_ctx, _cache) => {
       return {
         a: common_vendor.t(hospitalInfo.value.name),
-        b: common_vendor.t(hospitalInfo.value.level),
-        c: common_vendor.t(hospitalInfo.value.type),
-        d: common_vendor.t(hospitalInfo.value.address),
-        e: common_vendor.o(handleNavigate),
-        f: hospitalInfo.value.img,
-        g: common_vendor.f(serviceList.value, (service, index, i0) => {
+        b: hospitalInfo.value.img,
+        c: common_vendor.t(hospitalInfo.value.level),
+        d: common_vendor.t(hospitalInfo.value.type),
+        e: common_vendor.p({
+          width: "20",
+          height: "20",
+          src: "/static/hospitalDetail/location.png"
+        }),
+        f: common_vendor.t(hospitalInfo.value.address),
+        g: common_vendor.o(handleNavigate),
+        h: common_vendor.f(serviceList.value, (service, index, i0) => {
           return {
-            a: service.icon,
-            b: common_vendor.t(service.iconText),
-            c: common_vendor.n(service.iconClass),
-            d: common_vendor.t(service.title),
-            e: common_vendor.t(service.description),
-            f: common_vendor.t(service.price),
-            g: common_vendor.o(($event) => handleBook(service), service.id),
-            h: service.id
+            a: common_vendor.t(service.iconText),
+            b: common_vendor.n(service.iconClass),
+            c: common_vendor.t(service.title),
+            d: common_vendor.t(service.description),
+            e: common_vendor.t(service.price),
+            f: common_vendor.o(($event) => handleBook(service), service.id),
+            g: service.id
           };
-        })
+        }),
+        i: common_assets._imports_0
       };
     };
   }

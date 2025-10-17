@@ -1,0 +1,1 @@
+<view class="{{c}}" style="{{d}}"><slot></slot><wd-toast wx:if="{{a}}" u-i="7481a77f-0" bind:__l="__l" u-p="{{b}}"/></view>

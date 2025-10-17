@@ -1,0 +1,17 @@
+{
+  "navigationBarTitleText": "填写服务订单",
+  "usingComponents": {
+    "wd-step": "../../uni_modules/wot-design-uni/components/wd-step/wd-step",
+    "wd-steps": "../../uni_modules/wot-design-uni/components/wd-steps/wd-steps",
+    "wd-icon": "../../uni_modules/wot-design-uni/components/wd-icon/wd-icon",
+    "wd-input": "../../uni_modules/wot-design-uni/components/wd-input/wd-input",
+    "wd-form-item": "../../uni_modules/wot-design-uni/components/wd-form-item/wd-form-item",
+    "wd-cell-group": "../../uni_modules/wot-design-uni/components/wd-cell-group/wd-cell-group",
+    "wd-textarea": "../../uni_modules/wot-design-uni/components/wd-textarea/wd-textarea",
+    "wd-form": "../../uni_modules/wot-design-uni/components/wd-form/wd-form",
+    "wd-checkbox": "../../uni_modules/wot-design-uni/components/wd-checkbox/wd-checkbox",
+    "wd-button": "../../uni_modules/wot-design-uni/components/wd-button/wd-button",
+    "wd-popup": "../../uni_modules/wot-design-uni/components/wd-popup/wd-popup",
+    "wd-picker": "../../uni_modules/wot-design-uni/components/wd-picker/wd-picker"
+  }
+}

@@ -35,7 +35,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
     const hospitals = common_vendor.ref([
       {
         id: 1,
-        name: "九江学院附属医院666",
+        name: "九江学院附属医院",
         level: "三甲",
         type: "综合医院",
         img: "/static/list/1.svg",
@@ -43,7 +43,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
       },
       {
         id: 2,
-        name: "九江学院附属医院888",
+        name: "九江学院附属医院",
         level: "三甲",
         type: "综合医院",
         img: "/static/list/2.svg",

@@ -51,8 +51,8 @@
           
           <!-- 标签区域 -->
           <view class="hospital-tags">
-            <view class="tag tag-success">{{ item.level }}</view>
-            <view class="tag tag-primary">{{ item.type }}</view>
+            <view class="tag">{{ item.level }}</view>
+            <view class="tag">{{ item.type }}</view>
           </view>
           
           <!-- 医院描述 -->
@@ -90,7 +90,7 @@ const bannerList = ref([
 const hospitals = ref([
   {
     id: 1,
-    name: '九江学院附属医院666',
+    name: '九江学院附属医院',
     level: '三甲',
     type: '综合医院',
     img: '/static/list/1.svg',
@@ -98,7 +98,7 @@ const hospitals = ref([
   },
   {
     id: 2,
-    name: '九江学院附属医院888',
+    name: '九江学院附属医院',
     level: '三甲',
     type: '综合医院',
     img: '/static/list/2.svg',
@@ -233,21 +233,14 @@ const hospitals = ref([
 .tag {
   padding: 4rpx 12rpx;
   border-radius: 20rpx;
-  font-size: 20rpx;
+  font-size: 28rpx;
+  font-weight: 700;
   line-height: 1;
-}
-
-.tag-success {
-  background-color: #e8f5e8;
   color: #52c41a;
-  border: 1rpx solid #b7eb8f;
 }
 
-.tag-primary {
-  background-color: #e6f7ff;
-  color: #1890ff;
-  border: 1rpx solid #91d5ff;
-}
+
+
 
 .hospital-desc {
   font-size: 24rpx;
