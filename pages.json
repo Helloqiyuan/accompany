@@ -26,7 +26,7 @@
       }
     },
     {
-      "path": "pages/serviceorder/index",
+      "path": "pages/serviceOrder/index",
       "style": {
         "navigationBarTitleText": "填写服务订单"
       }
@@ -41,6 +41,18 @@
       "path": "pages/mine/index",
       "style": {
         "navigationBarTitleText": "个人中心"
+      }
+    },
+    {
+      "path": "pages/chooseServiceObject/index",
+      "style": {
+        "navigationBarTitleText": "选择服务对象"
+      }
+    },
+    {
+      "path": "pages/chooseServiceObject/newServiceObject/index",
+      "style": {
+        "navigationBarTitleText": "新增服务对象"
       }
     }
   ],

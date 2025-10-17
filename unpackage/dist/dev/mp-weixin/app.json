@@ -4,9 +4,11 @@
     "pages/home/func1/index",
     "pages/home/func2/index",
     "pages/home/hospitalDetail/index",
-    "pages/serviceorder/index",
+    "pages/serviceOrder/index",
     "pages/order/index",
-    "pages/mine/index"
+    "pages/mine/index",
+    "pages/chooseServiceObject/index",
+    "pages/chooseServiceObject/newServiceObject/index"
   ],
   "window": {
     "navigationBarTextStyle": "black",

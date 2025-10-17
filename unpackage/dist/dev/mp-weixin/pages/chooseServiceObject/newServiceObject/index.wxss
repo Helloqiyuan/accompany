@@ -1,0 +1,155 @@
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.container.data-v-32ba25cb {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding: 20rpx;
+}
+.form-container.data-v-32ba25cb {
+  background-color: white;
+  border-radius: 12rpx;
+  margin-bottom: 40rpx;
+}
+.form-item.data-v-32ba25cb {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32rpx 24rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+.form-item.data-v-32ba25cb:last-child {
+  border-bottom: none;
+}
+.form-label.data-v-32ba25cb {
+  width: 200rpx;
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+.form-input.data-v-32ba25cb {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+  text-align: right;
+}
+.form-input.data-v-32ba25cb::-webkit-input-placeholder {
+  color: #999;
+}
+.form-input.data-v-32ba25cb::placeholder {
+  color: #999;
+}
+.gender-selector.data-v-32ba25cb {
+  display: flex;
+}
+.gender-btn.data-v-32ba25cb {
+  padding: 12rpx 32rpx;
+  font-size: 28rpx;
+  color: #666;
+  background-color: #f5f5f5;
+  border: 1rpx solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+.gender-btn.active.data-v-32ba25cb {
+  background-color: #43c3d9;
+  color: white;
+  border-color: #43c3d9;
+}
+.relationship-selector.data-v-32ba25cb {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 28rpx;
+  color: #333;
+}
+.relationship-text.placeholder.data-v-32ba25cb {
+  color: #999;
+}
+.arrow.data-v-32ba25cb {
+  font-size: 20rpx;
+  color: #999;
+  margin-left: 16rpx;
+}
+.save-button.data-v-32ba25cb {
+  background-color: #43c3d9;
+  color: white;
+  text-align: center;
+  padding: 32rpx;
+  border-radius: 12rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  box-shadow: 0 4rpx 12rpx rgba(67, 195, 217, 0.3);
+  transition: all 0.3s ease;
+}
+.save-button.data-v-32ba25cb:active {
+  background-color: #3ab8cc;
+  transform: translateY(2rpx);
+}
+.picker-mask.data-v-32ba25cb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+}
+.picker-container.data-v-32ba25cb {
+  width: 100%;
+  background-color: white;
+  border-radius: 24rpx 24rpx 0 0;
+  max-height: 60vh;
+}
+.picker-header.data-v-32ba25cb {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 32rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+.picker-cancel.data-v-32ba25cb,
+.picker-confirm.data-v-32ba25cb {
+  font-size: 28rpx;
+  color: #43c3d9;
+}
+.picker-title.data-v-32ba25cb {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333;
+}
+.picker-view.data-v-32ba25cb {
+  height: 400rpx;
+}
+.picker-item.data-v-32ba25cb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: #333;
+  height: 80rpx;
+}

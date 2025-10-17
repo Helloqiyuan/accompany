@@ -12,6 +12,6 @@
     "wd-checkbox": "../../uni_modules/wot-design-uni/components/wd-checkbox/wd-checkbox",
     "wd-button": "../../uni_modules/wot-design-uni/components/wd-button/wd-button",
     "wd-popup": "../../uni_modules/wot-design-uni/components/wd-popup/wd-popup",
-    "wd-picker": "../../uni_modules/wot-design-uni/components/wd-picker/wd-picker"
+    "wd-datetime-picker": "../../uni_modules/wot-design-uni/components/wd-datetime-picker/wd-datetime-picker"
   }
 }

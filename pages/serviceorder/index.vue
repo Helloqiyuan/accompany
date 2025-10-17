@@ -2,7 +2,7 @@
     <view class="service-order-page">
         <!-- 进度条 -->
         <view class="progress-section">
-            <wd-steps :active="0" direction="horizontal" align-center>
+            <wd-steps :active="0" direction="horizontal" align-center active-color="#43c3d9">
                 <wd-step title="填写订单" />
                 <wd-step title="在线支付" />
                 <wd-step title="专人服务" />
@@ -64,7 +64,7 @@
                 <wd-cell-group>
                     <wd-form-item prop="requirements" label="服务需求">
                         <wd-textarea v-model="formData.requirements" placeholder="请简单描述您要就诊的科室..." :maxlength="200"
-                            show-word-limit :rows="4" />
+                            show-word-limit :rows="2" class="service-requirements-textarea" />
                     </wd-form-item>
                 </wd-cell-group>
             </wd-form>
@@ -84,7 +84,7 @@
 
         <!-- 确认按钮 -->
         <view class="confirm-section">
-            <wd-button type="primary" size="large" :disabled="!canSubmit" @click="confirmOrder" block>
+            <wd-button type="primary" size="large" :disabled="!canSubmit" @click="confirmOrder" block custom-style="background-color: #43c3d9; border-color: #43c3d9;">
                 确认下单 (支付¥50.00)
             </wd-button>
         </view>
@@ -105,11 +105,11 @@
                         @click="selectHospitalItem(index)"
                     >
                         <text class="hospital-name">{{ hospital }}</text>
-                        <wd-icon v-if="selectedHospitalIndex === index" name="check" size="16px" color="#4d80f0" />
+                        <wd-icon v-if="selectedHospitalIndex === index" name="check" size="16px" color="#43c3d9" />
                     </view>
                 </view>
                 <view class="picker-footer">
-                    <wd-button type="primary" size="large" @click="confirmHospitalSelection" block>
+                    <wd-button type="primary" size="large" @click="confirmHospitalSelection" block custom-style="background-color: #43c3d9; border-color: #43c3d9;">
                         确认
                     </wd-button>
                 </view>
@@ -123,62 +123,15 @@
                     <text class="picker-title">选择就诊时间</text>
                     <wd-icon name="close" size="20px" color="#999" @click="showTimePicker = false" />
                 </view>
-                <view class="time-picker-container">
-                    <view class="picker-column">
-                        <text class="column-title">日期</text>
-                        <scroll-view class="picker-scroll" scroll-y="true">
-                            <view 
-                                v-for="(date, index) in dateOptions" 
-                                :key="index"
-                                class="picker-item"
-                                :class="{ 'selected': selectedDateIndex === index }"
-                                @click="selectDate(index)"
-                            >
-                                {{ date }}
-                            </view>
-                        </scroll-view>
-                    </view>
-                    <view class="picker-column">
-                        <text class="column-title">时间</text>
-                        <scroll-view class="picker-scroll" scroll-y="true">
-                            <view 
-                                v-for="(hour, index) in hourOptions" 
-                                :key="index"
-                                class="picker-item"
-                                :class="{ 'selected': selectedHourIndex === index }"
-                                @click="selectHour(index)"
-                            >
-                                {{ hour }}
-                            </view>
-                        </scroll-view>
-                    </view>
-                    <view class="picker-column">
-                        <text class="column-title">分钟</text>
-                        <scroll-view class="picker-scroll" scroll-y="true">
-                            <view 
-                                v-for="(minute, index) in minuteOptions" 
-                                :key="index"
-                                class="picker-item"
-                                :class="{ 'selected': selectedMinuteIndex === index }"
-                                @click="selectMinute(index)"
-                            >
-                                {{ minute }}
-                            </view>
-                        </scroll-view>
-                    </view>
-                </view>
-                <view class="picker-footer">
-                    <wd-button type="primary" size="large" @click="confirmTimeSelection" block>
-                        确认
-                    </wd-button>
-                </view>
+                <wd-datetime-picker 
+                    v-model="selectedDateTime" 
+                    type="datetime" 
+                    :min-date="minDate" 
+                    :max-date="maxDate" 
+                    @confirm="handleTimeConfirm" 
+                    @cancel="showTimePicker = false"
+                />
             </view>
-        </wd-popup>
-
-        <!-- 就诊人选择弹窗 -->
-        <wd-popup v-model="showPatientPicker" position="bottom" safe-area-inset-bottom>
-            <wd-picker v-model="selectedPatient" :columns="patientList" title="选择就诊人" @confirm="onPatientConfirm"
-                @cancel="showPatientPicker = false" />
         </wd-popup>
 
         <!-- 服务内容弹窗 -->
@@ -192,7 +145,7 @@
                     <view class="service-description">
                         <text>提供代替患者在医院内就医过程中跑腿服务。如:进行排队,楼上楼下缴费,提取化验结果等服务。</text>
                     </view>
-                    <wd-button type="primary" size="large" @click="showServiceContentPopup = false" block>
+                    <wd-button type="primary" size="large" @click="showServiceContentPopup = false" block custom-style="background-color: #43c3d9; border-color: #43c3d9;">
                         我知道了,开始预约
                     </wd-button>
                 </view>
@@ -201,263 +154,209 @@
     </view>
 </template>
 
-<script>
-export default {
-    name: 'ServiceOrder',
-    data() {
-        return {
-            // 表单数据
-            formData: {
-                hospital: '', // 就诊医院
-                appointmentTime: '', // 就诊时间
-                patient: '', // 就诊人
-                phone: '', // 联系电话
-                requirements: '' // 服务需求
-            },
+<script setup lang="ts">
+import { ref, reactive, computed, onMounted, nextTick } from 'vue'
 
-            // 表单验证规则
-            rules: {
-                hospital: [
-                    { required: true, message: '请选择就诊医院' }
-                ],
-                appointmentTime: [
-                    { required: true, message: '请选择就诊时间' }
-                ],
-                patient: [
-                    { required: true, message: '请选择就诊人' }
-                ],
-                phone: [
-                    { required: true, message: '请填写联系电话' },
-                    { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号码' }
-                ]
-            },
+// 声明uni全局对象
+declare const uni: any
 
-            // 用户协议状态
-            agreed: false,
+// 表单数据
+const formData = reactive({
+    hospital: '', // 就诊医院
+    appointmentTime: '', // 就诊时间
+    patient: '', // 就诊人
+    phone: '', // 联系电话
+    requirements: '' // 服务需求
+})
 
-            // 弹窗控制
-            showHospitalPicker: false,
-            showTimePicker: false,
-            showPatientPicker: false,
-            showServiceContentPopup: false,
+// 表单验证规则
+const rules = reactive({
+    hospital: [
+        { required: true, message: '请选择就诊医院' }
+    ],
+    appointmentTime: [
+        { required: true, message: '请选择就诊时间' }
+    ],
+    patient: [
+        { required: true, message: '请选择就诊人' }
+    ],
+    phone: [
+        { required: true, message: '请填写联系电话' },
+        { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号码' }
+    ]
+})
 
-            // 选择器数据
-            selectedHospital: null,
-            selectedTime: null,
-            selectedPatient: null,
+// 用户协议状态
+const agreed = ref(false)
 
-            // 医院选项列表（九江地区医院）
-            hospitalOptions: [
-                '九江学院附属医院',
-                '九江市第一人民医院', 
-                '九江市第五人民医院'
-            ],
-            
-            // 选中的医院索引
-            selectedHospitalIndex: -1,
+// 弹窗控制
+const showHospitalPicker = ref(false)
+const showTimePicker = ref(false)
+const showServiceContentPopup = ref(false)
 
-            // 日期选项
-            dateOptions: [],
-            
-            // 小时选项
-            hourOptions: ['08', '09', '10', '11', '14', '15', '16', '17'],
-            
-            // 分钟选项
-            minuteOptions: ['00', '15', '30', '45'],
-            
-            // 选中的时间索引
-            selectedDateIndex: 1, // 默认选中明天
-            selectedHourIndex: 1, // 默认选中10点
-            selectedMinuteIndex: 2, // 默认选中30分
 
-            // 就诊人列表
-            patientList: [
-                ['张三', '李四', '王五', '赵六']
-            ]
-        }
-    },
+// 医院选项列表（九江地区医院）
+const hospitalOptions = ref([
+    '九江学院附属医院',
+    '九江市第一人民医院', 
+    '九江市第五人民医院'
+])
 
-    computed: {
-        // 是否可以提交订单
-        canSubmit() {
-            return this.agreed &&
-                this.formData.hospital &&
-                this.formData.appointmentTime &&
-                this.formData.patient &&
-                this.formData.phone
-        }
-    },
+// 选中的医院索引
+const selectedHospitalIndex = ref(-1)
 
-    mounted() {
-        // 初始化日期选项
-        this.initDateOptions()
-        
-        // 页面加载完成后自动显示服务内容弹窗
-        this.$nextTick(() => {
-            setTimeout(() => {
-                this.showServiceContentPopup = true
-            }, 500) // 延迟500ms显示，确保页面完全加载
-        })
-    },
+// 计算属性 - 是否可以提交订单
+const canSubmit = computed(() => {
+    return agreed.value &&
+        formData.hospital &&
+        formData.appointmentTime &&
+        formData.patient &&
+        formData.phone
+})
 
-    methods: {
-        // 初始化日期选项
-        initDateOptions() {
-            const today = new Date()
-            const tomorrow = new Date(today)
-            tomorrow.setDate(today.getDate() + 1)
-            const dayAfterTomorrow = new Date(today)
-            dayAfterTomorrow.setDate(today.getDate() + 2)
-            
-            const formatDate = (date, label) => {
-                const month = date.getMonth() + 1
-                const day = date.getDate()
-                return `${month}月${day}日 (${label})`
-            }
-            
-            this.dateOptions = [
-                formatDate(today, '今天'),
-                formatDate(tomorrow, '明天'),
-                formatDate(dayAfterTomorrow, '后天')
-            ]
-        },
-        // 选择医院
-        selectHospital() {
-            this.showHospitalPicker = true
-        },
+// 生命周期钩子
+onMounted(() => {
+    // 页面加载完成后自动显示服务内容弹窗
+    nextTick(() => {
+        setTimeout(() => {
+            showServiceContentPopup.value = true
+        }, 500) // 延迟500ms显示，确保页面完全加载
+    })
+})
 
-        // 选择医院项
-        selectHospitalItem(index) {
-            this.selectedHospitalIndex = index
-        },
-        
-        // 确认选择医院
-        confirmHospitalSelection() {
-            if (this.selectedHospitalIndex >= 0) {
-                this.formData.hospital = this.hospitalOptions[this.selectedHospitalIndex]
-                this.showHospitalPicker = false
-            }
-        },
 
-        // 选择时间
-        selectTime() {
-            this.showTimePicker = true
-        },
+// 选择医院
+const selectHospital = () => {
+    showHospitalPicker.value = true
+}
 
-        // 选择日期
-        selectDate(index) {
-            this.selectedDateIndex = index
-        },
-        
-        // 选择小时
-        selectHour(index) {
-            this.selectedHourIndex = index
-        },
-        
-        // 选择分钟
-        selectMinute(index) {
-            this.selectedMinuteIndex = index
-        },
-        
-        // 确认选择时间
-        confirmTimeSelection() {
-            const selectedDate = this.dateOptions[this.selectedDateIndex]
-            const selectedHour = this.hourOptions[this.selectedHourIndex]
-            const selectedMinute = this.minuteOptions[this.selectedMinuteIndex]
-            
-            this.formData.appointmentTime = `${selectedDate} ${selectedHour}:${selectedMinute}`
-            this.showTimePicker = false
-        },
+// 选择医院项
+const selectHospitalItem = (index: number) => {
+    selectedHospitalIndex.value = index
+}
 
-        // 选择就诊人
-        selectPatient() {
-            this.showPatientPicker = true
-        },
-
-        // 确认选择就诊人
-        onPatientConfirm(value) {
-            this.formData.patient = value[0]
-            this.showPatientPicker = false
-        },
-
-        // 用户协议状态改变
-        onAgreementChange(value) {
-            this.agreed = value
-        },
-
-        // 显示服务内容
-        showServiceContent() {
-            this.showServiceContentPopup = true
-        },
-
-        // 显示用户协议
-        showUserAgreement() {
-            uni.navigateTo({
-                url: '/pages/user-agreement/index'
-            })
-        },
-
-        // 显示服务协议
-        showServiceAgreement() {
-            uni.navigateTo({
-                url: '/pages/service-agreement/index'
-            })
-        },
-
-        // 确认下单
-        async confirmOrder() {
-            if (!this.canSubmit) {
-                uni.showToast({
-                    title: '请完善订单信息',
-                    icon: 'none'
-                })
-                return
-            }
-
-            try {
-                // 表单验证
-                await this.$refs.form.validate()
-
-                // 显示加载提示
-                uni.showLoading({
-                    title: '提交中...'
-                })
-
-                // 模拟提交订单
-                setTimeout(() => {
-                    uni.hideLoading()
-                    uni.showToast({
-                        title: '订单提交成功',
-                        icon: 'success'
-                    })
-
-                    // 跳转到支付页面
-                    setTimeout(() => {
-                        uni.navigateTo({
-                            url: '/pages/payment/index'
-                        })
-                    }, 1500)
-                }, 2000)
-
-            } catch (error) {
-                uni.hideLoading()
-                console.error('表单验证失败:', error)
-            }
-        },
-
-        // 格式化日期时间
-        formatDateTime(date) {
-            const d = new Date(date)
-            const year = d.getFullYear()
-            const month = String(d.getMonth() + 1).padStart(2, '0')
-            const day = String(d.getDate()).padStart(2, '0')
-            const hours = String(d.getHours()).padStart(2, '0')
-            const minutes = String(d.getMinutes()).padStart(2, '0')
-
-            return `${year}-${month}-${day} ${hours}:${minutes}`
-        }
+// 确认选择医院
+const confirmHospitalSelection = () => {
+    if (selectedHospitalIndex.value >= 0) {
+        formData.hospital = hospitalOptions.value[selectedHospitalIndex.value]
+        showHospitalPicker.value = false
     }
 }
+
+// 时间选择相关数据
+// 获取当前时间作为默认值
+const now = new Date()
+const selectedDateTime = ref(now)
+
+// 设置最小日期为今天
+const today = new Date()
+today.setHours(0, 0, 0, 0)
+const minDate = ref(today)
+
+// 设置最大日期为30天后
+const maxDate = ref(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000))
+
+// 选择时间 - 显示时间选择器
+const selectTime = () => {
+    showTimePicker.value = true
+}
+
+// 处理时间选择确认
+const handleTimeConfirm = (value: Date) => {
+    console.log('选择的时间:', value)
+    
+    // 格式化选择的日期时间
+    const year = value.getFullYear()
+    const month = value.getMonth() + 1
+    const day = value.getDate()
+    const hours = value.getHours()
+    const minutes = value.getMinutes()
+    
+    // 格式化显示文本
+    const formattedTime = `${month}月${day}日 ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`
+    
+    // 更新表单数据
+    formData.appointmentTime = formattedTime
+    
+    // 关闭时间选择器
+    showTimePicker.value = false
+    
+    console.log('格式化后的时间:', formattedTime)
+}
+
+// 选择就诊人
+const selectPatient = () => {
+    // 跳转到选择服务对象页面
+    uni.navigateTo({
+        url: '/pages/chooseServiceObject/index'
+    })
+}
+
+// 用户协议状态改变
+const onAgreementChange = (value: boolean) => {
+    agreed.value = value
+}
+
+// 显示服务内容
+const showServiceContent = () => {
+    showServiceContentPopup.value = true
+}
+
+// 显示用户协议
+const showUserAgreement = () => {
+    uni.navigateTo({
+        url: '/pages/user-agreement/index'
+    })
+}
+
+// 显示服务协议
+const showServiceAgreement = () => {
+    uni.navigateTo({
+        url: '/pages/service-agreement/index'
+    })
+}
+
+// 确认下单
+const confirmOrder = async () => {
+    if (!canSubmit.value) {
+        uni.showToast({
+            title: '请完善订单信息',
+            icon: 'none'
+        })
+        return
+    }
+
+    try {
+        // 表单验证
+        // await formRef.value.validate()
+
+        // 显示加载提示
+        uni.showLoading({
+            title: '提交中...'
+        })
+
+        // 模拟提交订单
+        setTimeout(() => {
+            uni.hideLoading()
+            uni.showToast({
+                title: '订单提交成功',
+                icon: 'success'
+            })
+
+            // 跳转到支付页面
+            setTimeout(() => {
+                uni.navigateTo({
+                    url: '/pages/payment/index'
+                })
+            }, 1500)
+        }, 2000)
+
+    } catch (error) {
+        uni.hideLoading()
+        console.error('表单验证失败:', error)
+    }
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -547,7 +446,7 @@ export default {
         line-height: 1.5;
 
         .agreement-link {
-            color: #4d80f0;
+            color: #43c3d9;
         }
     }
 }
@@ -564,8 +463,9 @@ export default {
     z-index: 2;
 }
 
-// 医院选择弹窗
-.hospital-picker-popup {
+// 医院选择弹窗和时间选择弹窗
+.hospital-picker-popup,
+.time-picker-popup {
     background-color: #fff;
     border-radius: 16rpx 16rpx 0 0;
     
@@ -603,10 +503,10 @@ export default {
             }
             
             &.selected {
-                background-color: #f8f9ff;
+                background-color: #f0fbfc;
                 
                 .hospital-name {
-                    color: #4d80f0;
+                    color: #43c3d9;
                     font-weight: bold;
                 }
             }
@@ -624,87 +524,6 @@ export default {
     }
 }
 
-// 时间选择弹窗
-.time-picker-popup {
-    background-color: #fff;
-    border-radius: 16rpx 16rpx 0 0;
-    
-    .picker-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 30rpx;
-        border-bottom: 1rpx solid #eee;
-        
-        .picker-title {
-            font-size: 32rpx;
-            font-weight: bold;
-            color: #333;
-        }
-    }
-    
-    .time-picker-container {
-        display: flex;
-        height: 400rpx;
-        
-        .picker-column {
-            flex: 1;
-            border-right: 1rpx solid #f0f0f0;
-            
-            &:last-child {
-                border-right: none;
-            }
-            
-            .column-title {
-                display: block;
-                text-align: center;
-                padding: 20rpx 0;
-                font-size: 24rpx;
-                color: #999;
-                background-color: #f8f9fa;
-                border-bottom: 1rpx solid #eee;
-            }
-            
-            .picker-scroll {
-                height: 340rpx;
-                
-                .picker-item {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    height: 68rpx;
-                    font-size: 28rpx;
-                    color: #333;
-                    border-bottom: 1rpx solid #f8f9fa;
-                    
-                    &.selected {
-                        background-color: #f0f8ff;
-                        color: #4d80f0;
-                        font-weight: bold;
-                        position: relative;
-                        
-                        &::after {
-                            content: '';
-                            position: absolute;
-                            top: 50%;
-                            right: 20rpx;
-                            width: 6rpx;
-                            height: 6rpx;
-                            background-color: #4d80f0;
-                            border-radius: 50%;
-                            transform: translateY(-50%);
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    .picker-footer {
-        padding: 20rpx 30rpx;
-        border-top: 1rpx solid #eee;
-    }
-}
 
 // 服务内容弹窗
 .service-content-popup {
@@ -738,11 +557,17 @@ export default {
                 color: #666;
                 line-height: 1.8;
                 padding: 20rpx;
-                border: 2rpx solid #ff9500;
+                border: 2rpx solid #43c3d9;
                 border-radius: 8rpx;
-                background-color: #fff8f0;
+                background-color: #f0fbfc;
             }
         }
     }
+}
+
+// 服务需求输入框样式
+.service-requirements-textarea {
+    width: 80%; // 设置宽度为80%
+    max-width: 500rpx; // 最大宽度限制
 }
 </style>

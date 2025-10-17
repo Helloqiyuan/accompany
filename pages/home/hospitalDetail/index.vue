@@ -122,7 +122,7 @@ const handleBook = (service: ServiceItem) => {
     console.log('预约服务:', service.title);
     // @ts-ignore
     uni.navigateTo({
-        url: '/pages/serviceorder/index'
+        url: '/pages/serviceOrder/index'
     })
 };
 

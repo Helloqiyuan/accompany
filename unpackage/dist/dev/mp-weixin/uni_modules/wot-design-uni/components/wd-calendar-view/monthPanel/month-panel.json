@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "wd-picker-view": "../../wd-picker-view/wd-picker-view",
+    "month": "../month/month"
+  }
+}

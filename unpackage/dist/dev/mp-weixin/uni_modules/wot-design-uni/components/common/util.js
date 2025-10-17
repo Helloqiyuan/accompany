@@ -19,14 +19,6 @@ function getType(target) {
   const type = match && match.length ? match[1].toLowerCase() : "";
   return type;
 }
-const defaultDisplayFormat = function(items, kv) {
-  const labelKey = (kv == null ? void 0 : kv.labelKey) || "value";
-  if (Array.isArray(items)) {
-    return items.map((item) => item[labelKey]).join(", ");
-  } else {
-    return items[labelKey];
-  }
-};
 const isDef = (value) => value !== void 0 && value !== null;
 function rgbToHex(r, g, b) {
   const hex = (r << 16 | g << 8 | b).toString(16);
@@ -73,6 +65,13 @@ const isEqual = (value1, value2) => {
     }
   }
   return true;
+};
+const padZero = (number, length = 2) => {
+  let numStr = number.toString();
+  while (numStr.length < length) {
+    numStr = "0" + numStr;
+  }
+  return numStr;
 };
 const context = {
   id: 1e3
@@ -185,6 +184,49 @@ function deepAssign(target, source) {
   });
   return target;
 }
+function debounce(func, wait, options = {}) {
+  let timeoutId = null;
+  let lastArgs;
+  let lastThis;
+  let result;
+  const leading = isDef(options.leading) ? options.leading : false;
+  const trailing = isDef(options.trailing) ? options.trailing : true;
+  function invokeFunc() {
+    if (lastArgs !== void 0) {
+      result = func.apply(lastThis, lastArgs);
+      lastArgs = void 0;
+    }
+  }
+  function startTimer() {
+    timeoutId = setTimeout(() => {
+      timeoutId = null;
+      if (trailing) {
+        invokeFunc();
+      }
+    }, wait);
+  }
+  function cancelTimer() {
+    if (timeoutId !== null) {
+      clearTimeout(timeoutId);
+      timeoutId = null;
+    }
+  }
+  function debounced(...args) {
+    lastArgs = args;
+    lastThis = this;
+    if (timeoutId === null) {
+      if (leading) {
+        invokeFunc();
+      }
+      startTimer();
+    } else if (trailing) {
+      cancelTimer();
+      startTimer();
+    }
+    return result;
+  }
+  return debounced;
+}
 const getPropByPath = (obj, path) => {
   const keys = path.split(".");
   try {
@@ -205,10 +247,10 @@ function isImageUrl(url) {
 exports.addUnit = addUnit;
 exports.camelCase = camelCase;
 exports.context = context;
+exports.debounce = debounce;
 exports.deepAssign = deepAssign;
 exports.deepClone = deepClone;
 exports.deepMerge = deepMerge;
-exports.defaultDisplayFormat = defaultDisplayFormat;
 exports.getPropByPath = getPropByPath;
 exports.getType = getType;
 exports.gradient = gradient;
@@ -222,6 +264,7 @@ exports.isPromise = isPromise;
 exports.isString = isString;
 exports.isVideoUrl = isVideoUrl;
 exports.objToStyle = objToStyle;
+exports.padZero = padZero;
 exports.pause = pause;
 exports.range = range;
 exports.uuid = uuid;

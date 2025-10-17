@@ -50,7 +50,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
     const handleBook = (service) => {
       console.log("预约服务:", service.title);
       common_vendor.index.navigateTo({
-        url: "/pages/serviceorder/index"
+        url: "/pages/serviceOrder/index"
       });
     };
     common_vendor.onMounted(() => {
