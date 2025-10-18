@@ -69,14 +69,14 @@ import { ref } from 'vue';
 const switchtofunc1 = ()=>{
   // @ts-ignore
   uni.navigateTo({
-    url: '/pages/home/func1/index'
+    url: '/pages/home/btn1'
   })
 }
 
 const switchtohospitaldetail = (item: any) => {
   // @ts-ignore
   uni.navigateTo({
-    url: `/pages/home/hospitalDetail/index?hospitalId=${item.id || 1}&name=${encodeURIComponent(item.name)}`
+    url: `/pages/home/hospitalDetail?hospitalId=${item.id || 1}&name=${encodeURIComponent(item.name)}`
   })
 }
 // 轮播图数据 - 只包含图片路径
@@ -184,7 +184,7 @@ const hospitals = ref([
   width: $c;
   height: 300rpx;
   background-color: white; /* 白色背景模拟卡片 */
-  border-radius: 12rpx; /* 圆角 */
+  border-radius: 16rpx; /* 圆角 */
   padding: 24rpx; /* 内边距 */
   margin-bottom: 16rpx; /* 卡片间距 */
   box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1); /* 阴影效果 */

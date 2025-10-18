@@ -1,3 +1,15 @@
 "use strict";
-const _imports_0 = "/static/func1/1.svg";
-exports._imports_0 = _imports_0;
+const _imports_0$2 = "/static/func1/1.svg";
+const _imports_0$1 = "/static/mine/avatar.svg";
+const _imports_1 = "/static/mine/serviceobjectmanagement.svg";
+const _imports_2 = "/static/mine/userprotocol.svg";
+const _imports_0 = "/static/mine/rightrow.svg";
+const _imports_4 = "/static/mine/privateprotocol.svg";
+const _imports_5 = "/static/mine/basesetiings.svg";
+exports._imports_0 = _imports_0$2;
+exports._imports_0$1 = _imports_0$1;
+exports._imports_0$2 = _imports_0;
+exports._imports_1 = _imports_1;
+exports._imports_2 = _imports_2;
+exports._imports_4 = _imports_4;
+exports._imports_5 = _imports_5;

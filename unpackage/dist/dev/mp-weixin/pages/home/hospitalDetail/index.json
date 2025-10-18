@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "医院详情",
-  "usingComponents": {
-    "wd-img": "../../../uni_modules/wot-design-uni/components/wd-img/wd-img"
-  }
-}

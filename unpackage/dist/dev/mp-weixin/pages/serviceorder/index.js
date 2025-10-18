@@ -115,11 +115,8 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
     };
     const selectPatient = () => {
       common_vendor.index.navigateTo({
-        url: "/pages/chooseServiceObject/index"
+        url: "/pages/serviceObjectList/index"
       });
-    };
-    const onAgreementChange = (value) => {
-      agreed.value = value;
     };
     const showServiceContent = () => {
       showServiceContentPopup.value = true;
@@ -263,26 +260,25 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
         }),
         D: common_vendor.o(showUserAgreement),
         E: common_vendor.o(showServiceAgreement),
-        F: common_vendor.o(onAgreementChange),
-        G: common_vendor.o(($event) => agreed.value = $event),
-        H: common_vendor.p({
+        F: common_vendor.o(($event) => agreed.value = $event),
+        G: common_vendor.p({
           modelValue: agreed.value
         }),
-        I: common_vendor.o(confirmOrder),
-        J: common_vendor.p({
+        H: common_vendor.o(confirmOrder),
+        I: common_vendor.p({
           type: "primary",
           size: "large",
           disabled: !canSubmit.value,
           block: true,
           ["custom-style"]: "background-color: #43c3d9; border-color: #43c3d9;"
         }),
-        K: common_vendor.o(($event) => showHospitalPicker.value = false),
-        L: common_vendor.p({
+        J: common_vendor.o(($event) => showHospitalPicker.value = false),
+        K: common_vendor.p({
           name: "close",
           size: "20px",
           color: "#999"
         }),
-        M: common_vendor.f(hospitalOptions.value, (hospital, index, i0) => {
+        L: common_vendor.f(hospitalOptions.value, (hospital, index, i0) => {
           return common_vendor.e({
             a: common_vendor.t(hospital),
             b: selectedHospitalIndex.value === index
@@ -299,53 +295,53 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
             g: common_vendor.o(($event) => selectHospitalItem(index), index)
           });
         }),
-        N: common_vendor.o(confirmHospitalSelection),
-        O: common_vendor.p({
+        M: common_vendor.o(confirmHospitalSelection),
+        N: common_vendor.p({
           type: "primary",
           size: "large",
           block: true,
           ["custom-style"]: "background-color: #43c3d9; border-color: #43c3d9;"
         }),
-        P: common_vendor.o(($event) => showHospitalPicker.value = $event),
-        Q: common_vendor.p({
+        O: common_vendor.o(($event) => showHospitalPicker.value = $event),
+        P: common_vendor.p({
           position: "bottom",
           ["safe-area-inset-bottom"]: true,
           modelValue: showHospitalPicker.value
         }),
-        R: common_vendor.o(($event) => showTimePicker.value = false),
-        S: common_vendor.p({
+        Q: common_vendor.o(($event) => showTimePicker.value = false),
+        R: common_vendor.p({
           name: "close",
           size: "20px",
           color: "#999"
         }),
-        T: common_vendor.o(handleTimeConfirm),
-        U: common_vendor.o(($event) => showTimePicker.value = false),
-        V: common_vendor.o(($event) => selectedDateTime.value = $event),
-        W: common_vendor.p({
+        S: common_vendor.o(handleTimeConfirm),
+        T: common_vendor.o(($event) => showTimePicker.value = false),
+        U: common_vendor.o(($event) => selectedDateTime.value = $event),
+        V: common_vendor.p({
           type: "datetime",
           ["min-date"]: minDate.value,
           ["max-date"]: maxDate.value,
           modelValue: selectedDateTime.value
         }),
-        X: common_vendor.o(($event) => showTimePicker.value = $event),
-        Y: common_vendor.p({
+        W: common_vendor.o(($event) => showTimePicker.value = $event),
+        X: common_vendor.p({
           position: "bottom",
           ["safe-area-inset-bottom"]: true,
           modelValue: showTimePicker.value
         }),
-        Z: common_vendor.o(($event) => showServiceContentPopup.value = false),
-        aa: common_vendor.p({
+        Y: common_vendor.o(($event) => showServiceContentPopup.value = false),
+        Z: common_vendor.p({
           name: "close"
         }),
-        ab: common_vendor.o(($event) => showServiceContentPopup.value = false),
-        ac: common_vendor.p({
+        aa: common_vendor.o(($event) => showServiceContentPopup.value = false),
+        ab: common_vendor.p({
           type: "primary",
           size: "large",
           block: true,
           ["custom-style"]: "background-color: #43c3d9; border-color: #43c3d9;"
         }),
-        ad: common_vendor.o(($event) => showServiceContentPopup.value = $event),
-        ae: common_vendor.p({
+        ac: common_vendor.o(($event) => showServiceContentPopup.value = $event),
+        ad: common_vendor.p({
           position: "center",
           modelValue: showServiceContentPopup.value
         })

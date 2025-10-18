@@ -19,12 +19,12 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
   setup(__props) {
     const switchtofunc1 = () => {
       common_vendor.index.navigateTo({
-        url: "/pages/home/func1/index"
+        url: "/pages/home/btn1"
       });
     };
     const switchtohospitaldetail = (item) => {
       common_vendor.index.navigateTo({
-        url: `/pages/home/hospitalDetail/index?hospitalId=${item.id || 1}&name=${encodeURIComponent(item.name)}`
+        url: `/pages/home/hospitalDetail?hospitalId=${item.id || 1}&name=${encodeURIComponent(item.name)}`
       });
     };
     const bannerList = common_vendor.ref([

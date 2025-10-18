@@ -1,20 +1,46 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-const _sfc_main = {};
-if (!Array) {
-  const _easycom_wd_text2 = common_vendor.resolveComponent("wd-text");
-  _easycom_wd_text2();
-}
-const _easycom_wd_text = () => "../../uni_modules/wot-design-uni/components/wd-text/wd-text.js";
-if (!Math) {
-  _easycom_wd_text();
-}
-function _sfc_render(_ctx, _cache) {
-  return {
-    a: common_vendor.p({
-      text: "芦叶满汀洲，寒沙带浅流。二十年重过南楼。柳下系船犹未稳，能几日，又中秋。黄鹤断矶头，故人曾到否？旧江山浑是新愁。欲买桂花同载酒，终不似，少年游。"
-    })
-  };
-}
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);
+const common_assets = require("../../common/assets.js");
+const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
+  __name: "index",
+  setup(__props) {
+    const goToServiceManagement = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/serviceObjectList/index"
+      });
+    };
+    const goToUserAgreement = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/mine/userprotocol"
+      });
+    };
+    const goToPrivacyPolicy = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/mine/privateprotocol"
+      });
+    };
+    const goToBasicSettings = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/mine/setting"
+      });
+    };
+    return (_ctx, _cache) => {
+      return {
+        a: common_assets._imports_0$1,
+        b: common_assets._imports_1,
+        c: common_vendor.o(goToServiceManagement),
+        d: common_assets._imports_2,
+        e: common_assets._imports_0$2,
+        f: common_vendor.o(goToUserAgreement),
+        g: common_assets._imports_4,
+        h: common_assets._imports_0$2,
+        i: common_vendor.o(goToPrivacyPolicy),
+        j: common_assets._imports_5,
+        k: common_assets._imports_0$2,
+        l: common_vendor.o(goToBasicSettings)
+      };
+    };
+  }
+});
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-569e925a"]]);
 wx.createPage(MiniProgramPage);

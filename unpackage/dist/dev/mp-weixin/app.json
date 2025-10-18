@@ -1,14 +1,19 @@
 {
   "pages": [
     "pages/home/index",
-    "pages/home/func1/index",
-    "pages/home/func2/index",
-    "pages/home/hospitalDetail/index",
+    "pages/home/btn1",
+    "pages/home/btn2",
+    "pages/home/hospitalDetail",
     "pages/serviceOrder/index",
     "pages/order/index",
     "pages/mine/index",
-    "pages/chooseServiceObject/index",
-    "pages/chooseServiceObject/newServiceObject/index"
+    "pages/mine/userprotocol",
+    "pages/mine/privateprotocol",
+    "pages/mine/setting",
+    "pages/mine/personalProfile",
+    "pages/mine/updatePhoneNumber",
+    "pages/serviceObjectList/index",
+    "pages/serviceObjectList/newServiceObject"
   ],
   "window": {
     "navigationBarTextStyle": "black",

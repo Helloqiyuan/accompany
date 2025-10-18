@@ -1,7 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "year-panel": "./yearPanel/year-panel",
-    "month-panel": "./monthPanel/month-panel"
-  }
-}

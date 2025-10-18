@@ -1,1 +1,0 @@
-<view class="{{['data-v-83220bf9', j]}}"><year-panel wx:if="{{a}}" class="r data-v-83220bf9" u-r="yearPanelRef" bindchange="{{c}}" u-i="83220bf9-0" bind:__l="__l" u-p="{{d}}"/><month-panel wx:else class="r data-v-83220bf9" u-r="monthPanelRef" bindchange="{{f}}" bindpickstart="{{g}}" bindpickend="{{h}}" u-i="83220bf9-1" bind:__l="__l" u-p="{{i||''}}"/></view>

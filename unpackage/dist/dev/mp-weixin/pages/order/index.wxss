@@ -1,0 +1,108 @@
+
+.order-center.data-v-17a44f9d {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 标签页样式 */
+.tabs.data-v-17a44f9d {
+  display: flex;
+  background-color: #fff;
+  border-bottom: 1rpx solid #eee;
+}
+.tab-item.data-v-17a44f9d {
+  flex: 1;
+  padding: 30rpx 0;
+  text-align: center;
+  font-size: 28rpx;
+  color: #666;
+  position: relative;
+}
+.tab-item.active.data-v-17a44f9d {
+  color: #007aff;
+  font-weight: bold;
+}
+.tab-item.active.data-v-17a44f9d::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60rpx;
+  height: 4rpx;
+  background-color: #007aff;
+  border-radius: 2rpx;
+}
+
+/* 订单列表样式 */
+.order-list.data-v-17a44f9d {
+  box-sizing: border-box;
+  padding: 20rpx;
+  height: calc(100vh - 120rpx);
+}
+.order-card.data-v-17a44f9d {
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: flex-start;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+.order-left.data-v-17a44f9d {
+  margin-right: 20rpx;
+}
+.service-icon.data-v-17a44f9d {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.order-content.data-v-17a44f9d {
+  flex: 1;
+  margin-right: 20rpx;
+}
+.service-name.data-v-17a44f9d {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+.hospital.data-v-17a44f9d {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+}
+.appointment-time.data-v-17a44f9d {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 8rpx;
+}
+.patient-name.data-v-17a44f9d {
+  font-size: 24rpx;
+  color: #999;
+}
+.order-right.data-v-17a44f9d {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.order-status.data-v-17a44f9d {
+  font-size: 26rpx;
+  margin-bottom: 8rpx;
+}
+.status-pending.data-v-17a44f9d {
+  color: #007aff;
+}
+.status-completed.data-v-17a44f9d {
+  color: #999;
+}
+.status-cancelled.data-v-17a44f9d {
+  color: #999;
+}
+.countdown.data-v-17a44f9d {
+  font-size: 24rpx;
+  color: #007aff;
+}

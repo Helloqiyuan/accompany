@@ -1,60 +1,109 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-if (!Array) {
-  const _easycom_wd_swiper2 = common_vendor.resolveComponent("wd-swiper");
-  const _easycom_wd_button2 = common_vendor.resolveComponent("wd-button");
-  (_easycom_wd_swiper2 + _easycom_wd_button2)();
-}
-const _easycom_wd_swiper = () => "../../uni_modules/wot-design-uni/components/wd-swiper/wd-swiper.js";
-const _easycom_wd_button = () => "../../uni_modules/wot-design-uni/components/wd-button/wd-button.js";
-if (!Math) {
-  (_easycom_wd_swiper + _easycom_wd_button)();
-}
 const _sfc_main = {
   __name: "index",
   setup(__props) {
-    const buttomin = () => {
-      console.log("点击了按钮");
-      common_vendor.index.switchTab({
-        url: "/pages/home/index",
-        success: function(res) {
-          console.log("跳转成功", res);
-        },
-        fail: function(err) {
-          console.error("跳转失败", err);
-        }
-      });
-    };
-    common_vendor.ref("Hello World");
-    const current = common_vendor.ref(0);
-    const list = common_vendor.ref([
-      "https://java-helloqiyuan.oss-cn-guangzhou.aliyuncs.com/2025/07/c4a5924c-efcc-4e06-80a3-71eb1d0440e2.png",
-      "https://java-helloqiyuan.oss-cn-guangzhou.aliyuncs.com/2025/07/f7d5f39e-3f93-4a26-a6e9-2e225ece9ee7.png",
-      "https://java-helloqiyuan.oss-cn-guangzhou.aliyuncs.com/2025/07/fa5da578-c4a1-48c2-af49-d8bccfd7451f.png",
-      "https://java-helloqiyuan.oss-cn-guangzhou.aliyuncs.com/2025/07/d60f8656-f5e4-457f-81b3-a3dc99ac12a8.png"
+    const currentTab = common_vendor.ref(0);
+    const tabs = common_vendor.ref([
+      { name: "全部订单", type: "all" },
+      { name: "待支付", type: "pending_payment" },
+      { name: "待服务", type: "pending_service" },
+      { name: "已完成", type: "completed" },
+      { name: "已取消", type: "cancelled" }
     ]);
-    function handleClick(e) {
-      console.log(e);
-    }
-    function onChange(e) {
-      console.log(e);
-    }
+    const orders = common_vendor.ref([
+      {
+        id: 1,
+        serviceName: "半天院内陪诊",
+        hospital: "九江学院附属医院",
+        appointmentTime: "10-04 08:00",
+        patientName: "张三",
+        status: "待支付",
+        statusClass: "status-pending",
+        iconSrc: "/static/func1/1.svg",
+        // 使用SVG图片
+        countdown: "00:29:59",
+        type: "pending_payment"
+      },
+      {
+        id: 2,
+        serviceName: "半天院内陪诊",
+        hospital: "九江附属医院",
+        appointmentTime: "10-13 08:00",
+        patientName: "张三",
+        status: "待服务",
+        statusClass: "status-pending",
+        iconSrc: "/static/func1/1.svg",
+        // 使用SVG图片
+        countdown: "",
+        type: "pending_service"
+      },
+      {
+        id: 3,
+        serviceName: "半天院内陪诊",
+        hospital: "九江学院附属医院",
+        appointmentTime: "10-13 08:00",
+        patientName: "张三",
+        status: "已完成",
+        statusClass: "status-completed",
+        iconSrc: "/static/func1/1.svg",
+        // 使用SVG图片
+        countdown: "",
+        type: "completed"
+      },
+      {
+        id: 4,
+        serviceName: "全天院内陪诊",
+        hospital: "九江学院附属医院",
+        appointmentTime: "10-13 08:00",
+        patientName: "张三",
+        status: "已取消",
+        statusClass: "status-cancelled",
+        iconSrc: "/static/func1/2.svg",
+        // 使用不同的SVG图片
+        countdown: "",
+        type: "cancelled"
+      }
+    ]);
+    const filteredOrders = common_vendor.computed(() => {
+      const currentTabType = tabs.value[currentTab.value].type;
+      if (currentTabType === "all") {
+        return orders.value;
+      }
+      return orders.value.filter((order) => order.type === currentTabType);
+    });
+    const switchTab = (index) => {
+      currentTab.value = index;
+    };
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.o(handleClick),
-        b: common_vendor.o(onChange),
-        c: common_vendor.o(($event) => current.value = $event),
-        d: common_vendor.p({
-          list: list.value,
-          current: current.value
+        a: common_vendor.f(tabs.value, (tab, index, i0) => {
+          return {
+            a: common_vendor.t(tab.name),
+            b: index,
+            c: currentTab.value === index ? 1 : "",
+            d: common_vendor.o(($event) => switchTab(index), index)
+          };
         }),
-        e: _ctx.indicatorDots,
-        f: _ctx.autoplay,
-        g: _ctx.interval,
-        h: _ctx.duration,
-        i: common_vendor.o(buttomin)
+        b: common_vendor.f(filteredOrders.value, (order, index, i0) => {
+          return common_vendor.e({
+            a: order.iconSrc,
+            b: common_vendor.t(order.serviceName),
+            c: common_vendor.t(order.hospital),
+            d: common_vendor.t(order.appointmentTime),
+            e: common_vendor.t(order.patientName),
+            f: common_vendor.t(order.status),
+            g: common_vendor.n(order.statusClass),
+            h: order.countdown
+          }, order.countdown ? {
+            i: common_vendor.t(order.countdown)
+          } : {}, {
+            j: index
+          });
+        })
       };
     };
   }
 };
-wx.createPage(_sfc_main);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-17a44f9d"]]);
+wx.createPage(MiniProgramPage);

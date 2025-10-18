@@ -1,6 +1,5 @@
 {
   "pages": [
-    //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
     {
       "path": "pages/home/index",
       "style": {
@@ -8,19 +7,19 @@
       }
     },
     {
-      "path": "pages/home/func1/index",
+      "path": "pages/home/btn1",
       "style": {
         "navigationBarTitleText": "就医陪诊"
       }
     },
     {
-      "path": "pages/home/func2/index",
+      "path": "pages/home/btn2",
       "style": {
         "navigationBarTitleText": "上门康复"
       }
     },
     {
-      "path": "pages/home/hospitalDetail/index",
+      "path": "pages/home/hospitalDetail",
       "style": {
         "navigationBarTitleText": "医院详情"
       }
@@ -44,13 +43,43 @@
       }
     },
     {
-      "path": "pages/chooseServiceObject/index",
+      "path": "pages/mine/userprotocol",
+      "style": {
+        "navigationBarTitleText": "用户协议"
+      }
+    },
+    {
+      "path": "pages/mine/privateprotocol",
+      "style": {
+        "navigationBarTitleText": "隐私政策"
+      }
+    },
+    {
+      "path": "pages/mine/setting",
+      "style": {
+        "navigationBarTitleText": "设置"
+      }
+    },
+    {
+      "path": "pages/mine/personalProfile",
+      "style": {
+        "navigationBarTitleText": "个人资料"
+      }
+    },
+    {
+      "path": "pages/mine/updatePhoneNumber",
+      "style": {
+        "navigationBarTitleText": "修改手机号"
+      }
+    },
+    {
+      "path": "pages/serviceObjectList/index",
       "style": {
         "navigationBarTitleText": "选择服务对象"
       }
     },
     {
-      "path": "pages/chooseServiceObject/newServiceObject/index",
+      "path": "pages/serviceObjectList/newServiceObject",
       "style": {
         "navigationBarTitleText": "新增服务对象"
       }
@@ -68,7 +97,7 @@
     "selectedColor": "#3cc51f",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
-    "height": "80px",
+    "height": "100px",
     "fontSize": "10px",
     "iconWidth": "24px",
     "spacing": "3px",

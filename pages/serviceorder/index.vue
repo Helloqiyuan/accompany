@@ -72,7 +72,7 @@
 
         <!-- 用户协议 -->
         <view class="agreement-section">
-            <wd-checkbox v-model="agreed" @change="onAgreementChange">
+            <wd-checkbox v-model="agreed">
                 <text class="agreement-text">
                     我已阅读并接受
                     <text class="agreement-link" @click="showUserAgreement">《用户协议》</text>
@@ -288,13 +288,8 @@ const handleTimeConfirm = (value: Date) => {
 const selectPatient = () => {
     // 跳转到选择服务对象页面
     uni.navigateTo({
-        url: '/pages/chooseServiceObject/index'
+        url: '/pages/serviceObjectList/index'
     })
-}
-
-// 用户协议状态改变
-const onAgreementChange = (value: boolean) => {
-    agreed.value = value
 }
 
 // 显示服务内容

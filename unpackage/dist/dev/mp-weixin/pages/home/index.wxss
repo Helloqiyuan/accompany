@@ -84,7 +84,7 @@ view.data-v-4978fed5 {
   height: 300rpx;
   background-color: white;
   /* 白色背景模拟卡片 */
-  border-radius: 12rpx;
+  border-radius: 16rpx;
   /* 圆角 */
   padding: 24rpx;
   /* 内边距 */
